@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { TodoController } from "../controllers/todo.controller";
+import { authMiddleware } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -71,7 +72,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Todo'
  */
-router.get("/todos", TodoController.getAll);
+router.get("/todos", authMiddleware, TodoController.getAll);
 
 /**
  * @swagger
@@ -97,7 +98,7 @@ router.get("/todos", TodoController.getAll);
  *       404:
  *         description: Todo not found
  */
-router.get("/todos/:id", TodoController.getById);
+router.get("/todos/:id", authMiddleware, TodoController.getById);
 
 /**
  * @swagger
@@ -118,7 +119,7 @@ router.get("/todos/:id", TodoController.getById);
  *             schema:
  *               $ref: '#/components/schemas/Todo'
  */
-router.post("/todos", TodoController.create);
+router.post("/todos", authMiddleware, TodoController.create);
 
 /**
  * @swagger
@@ -150,7 +151,7 @@ router.post("/todos", TodoController.create);
  *       404:
  *         description: Todo not found
  */
-router.patch("/todos/:id", TodoController.update);
+router.patch("/todos/:id", authMiddleware, TodoController.update);
 
 /**
  * @swagger
@@ -172,6 +173,6 @@ router.patch("/todos/:id", TodoController.update);
  *       404:
  *         description: Todo not found
  */
-router.delete("/todos/:id", TodoController.delete);
+router.delete("/todos/:id", authMiddleware, TodoController.delete);
 
 export default router;
