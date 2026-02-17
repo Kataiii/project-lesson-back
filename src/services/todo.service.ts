@@ -12,6 +12,33 @@ export const TodoService = {
     return result.rows;
   },
 
+  async getAllWithPagination(
+    page: number,
+    limit: number
+  ): Promise<{ tasks: Todo[]; totalPages: number }> {
+    const validPage = Math.max(1, page);
+    const validLimit = Math.max(1, Math.min(100, limit));
+
+    const offset = (validPage - 1) * validLimit;
+
+    const result = (
+      await query(
+        "SELECT * FROM todos ORDER BY created_at DESC LIMIT $1 OFFSET $2",
+        [validLimit, offset]
+      )
+    ).rows;
+
+    const count = await query("SELECT COUNT(*) FROM todos");
+    const totalPages = Math.ceil(
+      parseInt(count.rows[0].count, 10) / validLimit
+    );
+
+    return {
+      tasks: result,
+      totalPages: totalPages,
+    };
+  },
+
   async getById(id: number): Promise<Todo | null> {
     const result = await query("SELECT * FROM todos WHERE id = $1", [id]);
     return result.rows[0] || null;

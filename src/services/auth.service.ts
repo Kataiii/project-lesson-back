@@ -23,7 +23,6 @@ export const AuthService = {
   async auth(email: string, password: string) {
     const users = await query("SELECT * FROM users");
     const existingUser = users.rows.find((user) => user.email === email);
-
     if (!existingUser) {
       throw new Error("Неверный email или пароль");
     }

@@ -9,8 +9,10 @@ export const AuthController = {
       res.status(201).json(user);
     } catch (error) {
       res
-        .status(error === "Пользователь уже существует" ? 400 : 500)
-        .json({ error: error });
+        .status(
+          (error as Error).message === "Пользователь уже существует" ? 400 : 500
+        )
+        .json({ error: (error as Error).message });
     }
   },
 
@@ -21,8 +23,10 @@ export const AuthController = {
       res.status(200).json({ token: data[0], user: data[1] });
     } catch (error) {
       res
-        .status(error === "Неверный email или пароль" ? 400 : 500)
-        .json({ error: error });
+        .status(
+          (error as Error).message === "Неверный email или пароль" ? 400 : 500
+        )
+        .json({ error: (error as Error).message });
     }
   },
 };

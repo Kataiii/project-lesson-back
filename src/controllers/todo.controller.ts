@@ -5,8 +5,19 @@ export const TodoController = {
   async getAll(req: Request, res: Response) {
     try {
       const todos = await TodoService.getAll();
-      console.log(todos);
       res.json(todos);
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  },
+
+  async getAllWithPagination(req: Request, res: Response) {
+    try {
+      const page = parseInt(req.query.page as string, 10) || 1;
+      const limit = parseInt(req.query.limit as string, 10) || 10;
+
+      const response = await TodoService.getAllWithPagination(page, limit);
+      res.json(response);
     } catch (error) {
       res.status(500).json({ error: error });
     }

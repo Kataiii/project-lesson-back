@@ -76,6 +76,38 @@ router.get("/todos", authMiddleware, TodoController.getAll);
 
 /**
  * @swagger
+ * /api/todos-pagination:
+ *   get:
+ *     summary: Get all todos with pagination
+ *     parameters:
+ *       - name: page
+ *         in: query
+ *         description: Номер страницы
+ *         schema:
+ *           type: integet
+ *       - name: limit
+ *         in: query
+ *         description: Кол-во элементов на странице
+ *         schema:
+ *           type: integet
+ *     responses:
+ *       200:
+ *         description: List of todos.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Todo'
+ */
+router.get(
+  "/todos-pagination",
+  authMiddleware,
+  TodoController.getAllWithPagination
+);
+
+/**
+ * @swagger
  * /api/todos/{id}:
  *   get:
  *     summary: Get a todo by ID
