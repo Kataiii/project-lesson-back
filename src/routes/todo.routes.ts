@@ -62,6 +62,10 @@ const router = Router();
  * /api/todos:
  *   get:
  *     summary: Get all todos
+ *     tags:
+ *       - Todos
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of todos.
@@ -79,6 +83,10 @@ router.get("/todos", authMiddleware, TodoController.getAll);
  * /api/todos-pagination:
  *   get:
  *     summary: Get all todos with pagination
+ *     tags:
+ *       - Todos
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: page
  *         in: query
@@ -111,6 +119,10 @@ router.get(
  * /api/todos/{id}:
  *   get:
  *     summary: Get a todo by ID
+ *     tags:
+ *       - Todos
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -137,6 +149,10 @@ router.get("/todos/:id", authMiddleware, TodoController.getById);
  * /api/todos:
  *   post:
  *     summary: Create a new todo
+ *     tags:
+ *       - Todos
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -158,6 +174,10 @@ router.post("/todos", authMiddleware, TodoController.create);
  * /api/todos/{id}:
  *   patch:
  *     summary: Update an existing todo (partial update)
+ *     tags:
+ *       - Todos
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -190,6 +210,10 @@ router.patch("/todos/:id", authMiddleware, TodoController.update);
  * /api/todos/{id}:
  *   delete:
  *     summary: Delete a todo by ID
+ *     tags:
+ *       - Todos
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

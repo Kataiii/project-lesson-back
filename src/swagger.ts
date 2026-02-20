@@ -9,6 +9,15 @@ const options: swaggerJsdoc.Options = {
       version: "1.0.0",
       description: "A simple Express Todo API",
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
   },
   apis: ["./src/routes/*.ts"], // Где искать JSDoc комментарии
 };

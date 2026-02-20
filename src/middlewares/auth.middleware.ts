@@ -14,9 +14,13 @@ export const authMiddleware = async (
 
   const token = authHeader.split(" ")[1];
   try {
-    const decoded = JSON.parse(
-      String(jwt.verify(token, process.env.JWT_SECRET ?? ""))
-    );
+    const decoded = jwt.verify(token, process.env.JWT_SECRET ?? "") as {
+      id: number;
+      email: string;
+      iat: number;
+      exp: number;
+    };
+
     const users = await query("SELECT * FROM users");
     const existingUser = users.rows.find(
       (user) => user.email === decoded.email
