@@ -7,6 +7,7 @@ console.log(path.resolve(__dirname, "../.env"));
 import express from "express";
 import cors from "cors";
 import todoRoutes from "./routes/todo.routes";
+import productRoutes from "./routes/products.routes";
 import authRoutes from "./routes/auth.routes";
 import { swaggerUi, specs } from "./swagger";
 
@@ -17,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/auth", authRoutes);
-app.use("/api", todoRoutes);
+app.use("/api", [todoRoutes, productRoutes]);
 
 app.get("/", (req, res) => {
   res.json({ message: "Hello from Express backend!" });
